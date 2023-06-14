@@ -41,4 +41,7 @@ clean		:
 				rm -rf $(OBJS)
 .PHONY		:	fclean
 fclean		:	clean
-				rm -rf $(KERNEL)
+				rm -rf $(KERNEL) $(KERNEL:.bin=.iso) isodir
+
+.PHONY		:	re
+re			:	fclean all
