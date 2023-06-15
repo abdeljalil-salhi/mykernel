@@ -24,6 +24,6 @@ void kernel_main(void)
 	/* Initialize terminal interface */
 	terminal_initialize();
 
-	terminal_writestring("Hello, kernel World!\n", terminal.fg_default);
+	terminal_writestring("Hello, \akernel\a World!\n\n\n", terminal.fg_default);
 	terminal_writestring("Error: Abort.\n", VGA_COLOR_RED);
 }
