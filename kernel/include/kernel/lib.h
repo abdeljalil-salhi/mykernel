@@ -1,8 +1,8 @@
 #ifndef KERNEL_LIB_H
-# define KERNEL_LIB_H
+#define KERNEL_LIB_H
 
-# include <stddef.h>
+#include <stddef.h>
 
-size_t	strlen(const char* str);
+size_t StringLength(const char *String);
 
 #endif

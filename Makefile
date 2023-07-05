@@ -5,18 +5,18 @@ CROSS_FLAGS	=	-std=gnu99 -ffreestanding -O2 -Wall -Wextra
 GRUB_ISO	=	grub-mkrescue
 NASM		=	i686-elf-as
 
-BOOT_LOADER	:=	boot.s
-BOOT_LOADER	:=	$(addprefix kernel/, $(BOOT_LOADER))
-C_SOURCES	:=	kernel.c
-_C_SOURCES	:=	tty.c lib.c
-_C_SOURCES	:=	$(addprefix src/, $(_C_SOURCES))
-C_SOURCES	:=	$(addprefix kernel/, $(C_SOURCES) $(_C_SOURCES))
-LINKER		:=	linker.ld
-GRUB_CONF	:=	grub.cfg
+BOOT_LOADER	:=	Boot.s
+BOOT_LOADER	:=	$(addprefix Kernel/, $(BOOT_LOADER))
+C_SOURCES	:=	Kernel.c
+_C_SOURCES	:=	TTY.c Lib.c Interrupts.c
+_C_SOURCES	:=	$(addprefix Sources/, $(_C_SOURCES))
+C_SOURCES	:=	$(addprefix Kernel/, $(C_SOURCES) $(_C_SOURCES))
+LINKER		:=	Linker.ld
+GRUB_CONF	:=	GRUB.cfg
 
 OBJS		=	$(BOOT_LOADER:.s=.o) $(C_SOURCES:.c=.o)
 
-INCLUDES	=	kernel/include/kernel
+INCLUDES	=	Kernel/Include/Kernel
 CROSS_FLAGS	+=	$(addprefix -I, $(INCLUDES))
 
 .s.o		:
@@ -36,10 +36,10 @@ verify		:	$(KERNEL)
 
 .PHONY		:	build
 build		:	$(KERNEL)
-				mkdir -p isodir/boot/grub
-				cp $(KERNEL) isodir/boot/$(KERNEL)
-				cp $(GRUB_CONF) isodir/boot/grub/$(GRUB_CONF)
-				$(GRUB_ISO) -o $(KERNEL:.bin=.iso) isodir
+				mkdir -p ISODir/Boot/GRUB
+				cp $(KERNEL) ISODir/Boot/$(KERNEL)
+				cp $(GRUB_CONF) ISODir/Boot/GRUB/$(GRUB_CONF)
+				$(GRUB_ISO) -o $(KERNEL:.bin=.iso) ISODir
 
 .PHONY		:	run
 run			:	$(KERNEL)
@@ -50,7 +50,7 @@ clean		:
 				rm -rf $(OBJS)
 .PHONY		:	fclean
 fclean		:	clean
-				rm -rf $(KERNEL) $(KERNEL:.bin=.iso) isodir
+				rm -rf $(KERNEL) $(KERNEL:.bin=.iso) ISODir
 
 .PHONY		:	re
 re			:	fclean all
