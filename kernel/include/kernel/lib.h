@@ -1,7 +1,7 @@
 #ifndef KERNEL_LIB_H
 #define KERNEL_LIB_H
 
-#include <stddef.h>
+#include "TypeDefs.h"
 
 size_t StringLength(const char *String);
 

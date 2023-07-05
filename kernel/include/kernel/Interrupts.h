@@ -1,8 +1,7 @@
 #ifndef KERNEL_INTERRUPTS_H
 #define KERNEL_INTERRUPTS_H
 
-#include <stddef.h>
-#include <stdint.h>
+#include "TypeDefs.h"
 
 #define IDT_SIZE 256
 
@@ -28,15 +27,39 @@ typedef struct
     uint32_t OffsetHigh : 16;
 } __attribute__((packed)) _GateDescriptor32;
 
+void SetOffset(_GateDescriptor32 *Descriptor, uint32_t Offset);
+void SetSegmentSelector(_GateDescriptor32 *Descriptor, uint16_t SegmentSelector);
+void SetGateType(_GateDescriptor32 *Descriptor, enum GateType GateType);
+void SetDPL(_GateDescriptor32 *Descriptor, uint8_t DPL);
+void SetPresent(_GateDescriptor32 *Descriptor, bool Present);
+
+uint32_t GetOffset(_GateDescriptor32 *Descriptor);
+uint16_t GetSegmentSelector(_GateDescriptor32 *Descriptor);
+enum GateType GetGateType(_GateDescriptor32 *Descriptor);
+uint8_t GetDPL(_GateDescriptor32 *Descriptor);
+bool GetPresent(_GateDescriptor32 *Descriptor);
+
+_GateDescriptor32 CreateGateDescriptor32(uint32_t Offset, uint16_t SegmentSelector,
+                                         enum GateType GateType, uint8_t DPL, bool Present);
+
 typedef struct
 {
     _GateDescriptor32 Descriptors[IDT_SIZE];
 } __attribute__((packed)) _InterruptDescriptorTable32;
+
+void InsertNewEntry(_InterruptDescriptorTable32 *IDT, _GateDescriptor32 Descriptor, size_t Index);
+const _GateDescriptor32 *GetEntry(_InterruptDescriptorTable32 *IDT, size_t Index);
 
 typedef struct
 {
     uint16_t Size;
     uint32_t Address;
 } __attribute__((packed)) _IDTDescriptor;
+
+void SetSize(_IDTDescriptor *Descriptor, uint16_t Size);
+void SetAddress(_IDTDescriptor *Descriptor, uint32_t Address);
+
+uint16_t GetSize(_IDTDescriptor *Descriptor);
+uint32_t GetAddress(_IDTDescriptor *Descriptor);
 
 #endif

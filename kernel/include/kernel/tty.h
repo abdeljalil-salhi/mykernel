@@ -1,8 +1,7 @@
 #ifndef KERNEL_TTY_H
 #define KERNEL_TTY_H
 
-#include <stddef.h>
-#include <stdint.h>
+#include "TypeDefs.h"
 
 /* Hardware text mode color constants. */
 enum VGAColor

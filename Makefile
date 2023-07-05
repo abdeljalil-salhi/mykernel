@@ -8,7 +8,8 @@ NASM		=	i686-elf-as
 BOOT_LOADER	:=	Boot.s
 BOOT_LOADER	:=	$(addprefix Kernel/, $(BOOT_LOADER))
 C_SOURCES	:=	Kernel.c
-_C_SOURCES	:=	TTY.c Lib.c Interrupts.c
+_INTERRUPTS	:=	Interrupts/GateDescriptor32.c Interrupts/InterruptDescriptorTable32.c Interrupts/IDTDescriptor.c
+_C_SOURCES	:=	TTY.c Lib.c $(_INTERRUPTS)
 _C_SOURCES	:=	$(addprefix Sources/, $(_C_SOURCES))
 C_SOURCES	:=	$(addprefix Kernel/, $(C_SOURCES) $(_C_SOURCES))
 LINKER		:=	Linker.ld
@@ -16,7 +17,7 @@ GRUB_CONF	:=	GRUB.cfg
 
 OBJS		=	$(BOOT_LOADER:.s=.o) $(C_SOURCES:.c=.o)
 
-INCLUDES	=	Kernel/Include/Kernel
+INCLUDES	=	Kernel/Include/Kernel Kernel/Include
 CROSS_FLAGS	+=	$(addprefix -I, $(INCLUDES))
 
 .s.o		:
