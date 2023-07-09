@@ -1,31 +1,42 @@
 ENTRY(_start)
- 
+
 SECTIONS
 {
 	. = 1M;
- 
-	.text BLOCK(4K) : ALIGN(4K)
+
+	.text :
 	{
-		*(.multiboot)
+		*(.multiboot_header)
 		*(.text)
 	}
- 
-	/* Read-only data. */
-	.rodata BLOCK(4K) : ALIGN(4K)
+
+	.rodata :
 	{
 		*(.rodata)
 	}
- 
-	/* Read-write data (initialized) */
-	.data BLOCK(4K) : ALIGN(4K)
+
+	.data :
 	{
 		*(.data)
 	}
- 
-	/* Read-write data (uninitialized) and stack */
-	.bss BLOCK(4K) : ALIGN(4K)
+
+	.bss :
 	{
-		*(COMMON)
 		*(.bss)
 	}
- }
+
+	.page_tables :
+	{
+		*(.page_tables)
+	}
+
+	.interrupt_descriptor_table :
+	{
+		*(.interrupt_descriptor_table)
+	}
+
+	.reserved_kernel_memory :
+	{
+		*(.reserved_kernel_memory)
+	}
+}

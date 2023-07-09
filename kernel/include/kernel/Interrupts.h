@@ -62,4 +62,7 @@ void SetAddress(_IDTDescriptor *Descriptor, uint32_t Address);
 uint16_t GetSize(_IDTDescriptor *Descriptor);
 uint32_t GetAddress(_IDTDescriptor *Descriptor);
 
-#endif
+void _KeyboardHandler(void);
+void _DefaultHandler(void);
+
+#endif // KERNEL_INTERRUPTS_H

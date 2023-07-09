@@ -5,4 +5,4 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#endif
+#endif // KERNEL_TYPEDEFS_H

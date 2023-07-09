@@ -8,7 +8,8 @@ NASM		=	i686-elf-as
 BOOT_LOADER	:=	Boot.s
 BOOT_LOADER	:=	$(addprefix Kernel/, $(BOOT_LOADER))
 C_SOURCES	:=	Kernel.c
-_INTERRUPTS	:=	Interrupts/GateDescriptor32.c Interrupts/InterruptDescriptorTable32.c Interrupts/IDTDescriptor.c
+_INTERRUPTS	:=	Interrupts/GateDescriptor32.c Interrupts/InterruptDescriptorTable32.c Interrupts/IDTDescriptor.c \
+				Interrupts/InterruptHandler.c
 _C_SOURCES	:=	TTY.c Lib.c CPU.c
 _C_SOURCES	+=	$(_INTERRUPTS)
 _C_SOURCES	:=	$(addprefix Sources/, $(_C_SOURCES))

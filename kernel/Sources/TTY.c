@@ -1,5 +1,6 @@
 #include "TTY.h"
 #include "Lib.h"
+#include "Keyboard.h"
 
 void TerminalInitialize(void)
 {
@@ -8,6 +9,8 @@ void TerminalInitialize(void)
     Terminal.Color = VGAEntryColor(Terminal.ForegroundDefault, Terminal.BackgroundDefault);
     Terminal.Buffer = (uint16_t *)0xB8000;
     TerminalClear();
+
+    KeyboardInitialize();
 }
 
 void TerminalClear(void)
